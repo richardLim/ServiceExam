@@ -21,4 +21,18 @@
         android:text="서비스 중지"
         />
 
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:onClick="onStartIntentService"
+        android:text="인텐드 서비스 시작"
+        />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:onClick="onStartForgroundService"
+        android:text="포그라운드 서비스 시작"
+        />
+
 </LinearLayout>

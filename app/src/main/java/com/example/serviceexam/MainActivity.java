@@ -3,6 +3,7 @@ package com.example.serviceexam;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,4 +28,19 @@ public class MainActivity extends AppCompatActivity {
         stopService(intent);
     }
 
+    public void onStartIntentService(View view) {
+        Intent intent = new Intent(this, MyIntentService.class);
+        startService(intent);
+    }
+
+    public void onStartForgroundService(View view) {
+        Intent intent = new Intent(this, MyService.class);
+        intent.setAction("startGorground");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        }else {
+            startService(intent);
+        }
+
+    }
 }
