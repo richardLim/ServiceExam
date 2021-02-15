@@ -4,7 +4,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -16,6 +19,13 @@ public class MyService extends Service {
     private static final String TAG = MyService.class.getSimpleName();
     private Thread mThread;
     private int mCount = 0;
+
+    private IBinder mBinder = new MyBinder();
+    public class MyBinder extends Binder {
+        public MyService getService() {
+            return MyService.this;
+        }
+    }
 
     public MyService() {
     }
@@ -29,7 +39,7 @@ public class MyService extends Service {
             mThread = new Thread("My Thread") {
                 @Override
                 public void run() {
-                    for(int i = 0; i < 5; i++) {
+                    for(int i = 0; i < 100; i++) {
                         mCount++;
                         try {
                             Thread.sleep(1000);
@@ -60,9 +70,13 @@ public class MyService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return mBinder;
     }
+
+    public int getCount() {
+        return mCount;
+    }
+
 
     private void startForegroundService() {
 
@@ -82,4 +96,7 @@ public class MyService extends Service {
 
         startForeground(1, builder.build());
     }
+
+
+
 }
