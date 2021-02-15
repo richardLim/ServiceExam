@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartForgroundService(View view) {
         Intent intent = new Intent(this, MyService.class);
-        intent.setAction("startGorground");
+        intent.setAction("startForeground");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(intent);
         }else {
